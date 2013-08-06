@@ -1,16 +1,10 @@
 require 'formula'
 
 class ImageoptimCli < Formula
+  url 'https://github.com/JamieMason/ImageOptim-CLI/archive/1.6.18.tar.gz'
   homepage 'http://jamiemason.github.io/ImageOptim-CLI/'
-  url 'https://github.com/JamieMason/ImageOptim-CLI/archive/1.6.13.tar.gz'
-  sha1 'd9d3151d96400f408f616f64f83012cffcdb65a4'
+  sha1 '9f78f543a51cf8bbbb864571625db824ff9a04dc'
   head 'https://github.com/JamieMason/ImageOptim-CLI.git'
-
-  depends_on 'pngquant' => :optional
-  # no idea how to say depends on imageOptim.app
-  # maybe we need a Makefile/install script
-  # in fact we do - if we want to use the Ruby gems
-  # we need to know how they are using Ruby: System, rbenv, rvm, 
 
   def install
     bin.install "bin/imageOptimAppleScriptLib", "bin/imageOptim"

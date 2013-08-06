@@ -100,6 +100,19 @@ is_main_git_repo() {
     fi
 }
 
+is_forked_git_repo_with_upstream() {
+
+    local main_git_repo="$1"
+    # note = remote.upstream.url may not exist
+    local remote_upstream_url=$(git config --get remote.upstream.url)
+
+    if [[ "$remote_upstream_url" == "$main_git_repo"* ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
 # check check to see if the URl exists
 # retCodes:
 # 99 - missing param
