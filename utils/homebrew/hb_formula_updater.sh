@@ -6,10 +6,6 @@ set -o nounset
 source ./utils.sh
 
 MAIN_REPO="https://github.com/JamieMason/ImageOptim-CLI.git"
-## TODO - no hardcoding
-USER="jamesstout"
-
-#set -e
 
 if [ $# -eq 0 ];
 then
@@ -179,7 +175,7 @@ e_warning "New Formula file is:"
 cat "$FORMULA_PATH"
 
 e_warning "Now check in to your fork of https://github.com/mxcl/homebrew and push"
-e_warning "Then go to https://github.com/$USER/homebrew/pull/new/$FORMULA"
+e_warning "Then go to https://github.com/USER/homebrew/pull/new/$FORMULA"
 exit;
 
 ## TODO - automate this bit
