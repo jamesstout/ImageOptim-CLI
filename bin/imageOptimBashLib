@@ -7,7 +7,7 @@
 # ------------------------------------
 
 # current version of ImageOptim-CLI from package.json
-VERSION="1.14.8"
+VERSION="1.14.9"
 
 # {DirectoryPath} Absolute file system path to this shell script.
 CLI_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -459,6 +459,10 @@ function get_jpegmini_app_name {
   echo `osascript "$APPLESCRIPT_BIN" getJpegMiniAppName`
 }
 
+function get_queue_size {
+  echo `osascript -e 'tell application "ImageOptim" to do queuecount command'`
+}
+
 # If enabled and installed, run ImageAlpha on our temp directory
 function run_image_alpha {
   if [ "true" == "$USE_IMAGE_ALPHA" ]; then
@@ -499,7 +503,20 @@ function run_image_optim {
   # close duplicate app
   osascript "$APPLESCRIPT_BIN" quitImageOptim
   # run images over the app
-  "${location}Contents/MacOS/ImageOptim" 2> /dev/null "${TEMP_PATH}"
+  location=${location%?????} #trims last 5 chars from string
+  info "Running open ${location} -a"
+  open -a ImageOptim "${TEMP_PATH}"
+  
+  # wait a couple of seconds for app to open and add the files
+  sleep 2
+  QUEUE_SIZE=$(get_queue_size)
+
+  # wait until all files are processed
+  while [ $QUEUE_SIZE -gt 0 ]
+  do
+    QUEUE_SIZE="$(get_queue_size)"
+  done
+
   if [ "true" == "$QUIT_ON_COMPLETE" ]; then
     osascript "$APPLESCRIPT_BIN" quitImageOptim
   fi
