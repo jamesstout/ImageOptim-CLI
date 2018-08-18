@@ -19,6 +19,7 @@ export interface IOptions {
     imageAlpha: boolean;
     imageOptim: boolean;
     jpegMini: boolean;
+    json: boolean;
     quit: boolean;
     stats: boolean;
   };
@@ -54,7 +55,7 @@ export const cli = async (options: IOptions) => {
     const stats = await runIfEnabled('stats');
     await tearDown(options);
     if (stats) {
-      await writeReport(stats);
+      await writeReport(stats, options.enabled.json);
     }
     complete('Finished');
   } catch (err) {

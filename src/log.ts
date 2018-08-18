@@ -35,6 +35,24 @@ export const result = (
   );
 };
 
+export const resultJSON = (
+  label: string = 'TOTAL',
+  prettySizeBefore: string,
+  prettySizeAfter: string,
+  prettySizeSaving: string,
+  sizeSavingPercent: number,
+  qualityPercent: number
+) => {
+  console.log(
+    '{ "name": "%s", "was": "%s", "now": "%s", "saving": "%s", "perc": "%s"},', // not quite right yet
+    label,
+    prettySizeBefore,
+    prettySizeAfter,
+    prettySizeSaving,
+    `${sizeSavingPercent.toFixed(2)}%`
+  );
+};
+
 export const verbose =
   process.env.NODE_ENV === 'development'
     ? (value: string): void => console.info(color.grey('? %s'), value)

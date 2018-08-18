@@ -28,6 +28,7 @@ program
   .option('-I, --no-imageoptim', 'disable ImageOptim')
   .option('-Q, --no-quit', 'do not quit apps once finished')
   .option('-S, --no-stats', 'do not display file size savings and quality loss information')
+  .option('--json', 'output file size savings in JSON')
   .option(
     '--number-of-colors <n>',
     `ImageAlpha palette size, defaults to ${PNGQUANT_NUMBER_OF_COLORS}`
@@ -94,6 +95,7 @@ cli({
     imageAlpha: program.imagealpha === true,
     imageOptim: program.imageoptim === true,
     jpegMini: program.jpegmini === true,
+    json: program.json === true,
     quit: program.quit === true,
     stats: program.stats === true
   },
